@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+body{
+	background:#00CCDD;
+}
+.container{
+	background:#6439FF;
+	padding:40px;
+	justify-content:center;
+	text-align:center;
+}

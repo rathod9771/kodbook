@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>kodbook</title>
+<link rel="stylesheet" type="text/css" th:href="style.css">
+</head>
+<body>
+
+<h1>welcome to kodbook!</h1>
+<hr>
+
+<form class="container" action="/login" method="post">
+
+<label>USERNAME:</label>
+<input type="text" name="username" required><br><br>
+<label>PASSWORD:</label>
+<input type="password" name="password" required><br><br>
+
+<input type="submit" value="LOGIN">
+<a href="/openResetPassword">Forgot Password?</a>
+<a href="/openSignUp">create new account</a>
+</form>
+<script src="" type="text/javascript" th:src="@{/function.js}"></script>
+</body>
+</html>
