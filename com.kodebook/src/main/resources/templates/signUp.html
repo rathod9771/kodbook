@@ -1,12 +1,15 @@
   <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" th:href="style.css">
-</head>
-<body>
-<h2> welcome to signup page </h2>
+		<meta charset="UTF-8">
+		<title>KodBook Sign up</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	</head>
+	<body>
+		<h1>KodBook</h1>
+		<h3>Create account on #1 Social media app!</h3>
+		<hr>
+
 <form action="/signUp" method="post">
 <label>USERNAME:</label>
 <input type="text" name="username"><br><br>
@@ -23,6 +26,7 @@
 
 
 <input type="submit" value="SIGN UP">
+
 
 <a href="/">Already have account? Login instead</a>
 </form>

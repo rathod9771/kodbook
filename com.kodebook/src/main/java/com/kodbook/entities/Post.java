@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 @Entity
 public class Post {
 	
@@ -27,6 +28,9 @@ public class Post {
   int likes;
 	List<String>comments;
 	
+	@ManyToOne
+	private User user;
+	
 	public String getPhotoBase64() {
 		if(photo==null) {
 			return null;
@@ -39,13 +43,14 @@ public class Post {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(Long id, String caption, byte[] photo, int likes, List<String> comments) {
+	public Post(Long id, String caption, byte[] photo, int likes, List<String> comments, User user) {
 		super();
 		this.id = id;
 		this.caption = caption;
 		this.photo = photo;
 		this.likes = likes;
 		this.comments = comments;
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -88,10 +93,19 @@ public class Post {
 		this.comments = comments;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", caption=" + caption + ", photo=" + Arrays.toString(photo) + ", likes=" + likes
-				+ ", comments=" + comments + "]";
+				+ ", comments=" + comments + ", user=" + user + "]";
 	}
+
 	
 }

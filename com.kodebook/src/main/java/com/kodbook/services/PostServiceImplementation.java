@@ -40,10 +40,12 @@ public class PostServiceImplementation implements PostService{
 		repo.save(post);
 	}
 
+	
+
 	@Override
-	public void showPosts(Post post) {
-		repo.findAll();
-		
+	public List<Post> getAllPosts() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
 	}
 
 }

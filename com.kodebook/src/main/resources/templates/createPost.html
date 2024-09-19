@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Create New Post</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/profile.css}">
 </head>
 <body>
-<form id ="profileForm"action="/createPost" method="post" enctype="multipart/form-data">
-<h2> welcome to newpost page </h2>
-<label>Enter caption:</label>
-<textarea  name="caption"></textarea>
-<label>upload photo:</label>
-<input type="file" name="photo" required><br><br>
+    <!-- Navigation bar -->
+    <nav>
+        <a href="/goHome">News feed</a>
+        <a href="/openCreatePost">Create post</a>
+        <a href="/openMyProfile">My profile</a>
+    </nav>
 
-<input type="submit" value="POST">
-</form>
+ <div class="post-form-container">
+        <h2>Create a New Post</h2>
 
+ <form id="profileForm" action="/createPost" method="post" enctype="multipart/form-data">
+        <textarea name="caption" placeholder="Write your caption here..." required></textarea>
+        <br><br>
+        <input type="file" name="photo" accept="image/*" />
+        
+        <br><br>
+        <button type="submit">POST</button>
+    </form>
+     </div>
 </body>
+
+
 </html>
