@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kodbook.entities.Post;
 import com.kodbook.entities.User;
@@ -20,7 +22,6 @@ public class NavigationController {
 	UserService service;
 	@Autowired
 	PostService postService;
-
 	@GetMapping("/")
 	public String index() {
 		return "index";
@@ -44,11 +45,34 @@ public class NavigationController {
 		String username = (String) session.getAttribute("username");
 		User user = service.getUser(username);
 		model.addAttribute("user", user);
+		List<Post> myPosts = user.getPosts();
+		model.addAttribute("myPosts", myPosts);
+		
 		return "myProfile";
 	}
+	
 	@GetMapping("/openEditProfile")
-	public String openEditProfile() {
-		return "editProfile";
+	public String openEditProfile(HttpSession session) {
+		
+		if(session.getAttribute("username")!=null)
+			return "editProfile";
+		else
+			return "index";
 	}
 	
+	@PostMapping("/visitProfile")
+	public String visitProfile(@RequestParam String profileName, Model model) {
+		User user = service.getUser(profileName);
+		model.addAttribute("user", user);
+		List<Post> myPosts = user.getPosts();
+		model.addAttribute("myPosts", myPosts);
+		
+		return "showUserProfile";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "index";
+	}
 }

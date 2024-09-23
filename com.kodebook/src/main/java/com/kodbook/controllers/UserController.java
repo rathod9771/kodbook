@@ -20,43 +20,42 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
-
 	@Autowired
 	UserService service;
 	@Autowired
 	PostService postService;
-	
 	@PostMapping("/signUp")
-		public String addUser(@ModelAttribute User user) {
-		
+	public String addUser(@ModelAttribute User user) {
 		//user exists?
-		String username=user.getUsername();
-		String email=user.getEmail();
-		boolean status=service.userExists(username,email);
-		if(status==false) {
+		String username = user.getUsername();
+		String email = user.getEmail();
+		boolean status = service.userExists(username, email);
+		if(status == false) {
 			service.addUser(user);
 		}
 		return "index";
 	}
+	
 	@PostMapping("/login")
-	public String login(@RequestParam String username,@RequestParam String password,Model model,HttpSession session) {
-		
-		
-		
-////		check if username already exists
-		boolean status=service.validateUser(username,password);
-//		username does not exist
-		if(status==true) {
-			List<Post>allPosts=postService.fetchAllPosts();
+	public String login(@RequestParam String username,
+			@RequestParam String password,
+			Model model, HttpSession session)	{
+		boolean status = service.validateUser(username, password);
+		if(status == true) {
+			List<Post> allPosts = postService.fetchAllPosts();
+			
 			session.setAttribute("username", username);
-			model.addAttribute("session",session);
-			model.addAttribute("allPosts",allPosts);
+			model.addAttribute("session", session);
+			
+			model.addAttribute("allPosts", allPosts);
+			
 			return "home";
 		}
 		else {
 			return "index";
 		}
 	}
+	
 	@PostMapping("/updateProfile")
 	public String updateProfile(@RequestParam String dob, @RequestParam String gender,
 			@RequestParam String city, @RequestParam String bio,
@@ -64,27 +63,27 @@ public class UserController {
 			@RequestParam String gitHub, @RequestParam MultipartFile profilePic
 			, HttpSession session,
 			Model model) {
-		String username=(String)session.getAttribute("username");
+		
+		String username = (String) session.getAttribute("username");
 		
 		//fetch user object using username
-				User user = service.getUser(username);
-				//update and save object
-				user.setDob(dob);
-				user.setGender(gender);
-				user.setCity(city);
-				user.setBio(bio);
-				user.setCollege(college);
-				user.setLinkedIn(linkedIn);
-				user.setGitHub(gitHub);
-				try {						
-					user.setProfilePic(profilePic.getBytes());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				service.updateUser(user);
-				model.addAttribute("user", user);
-				return "myProfile";
+		User user = service.getUser(username);
+		//update and save object
+		user.setDob(dob);
+		user.setGender(gender);
+		user.setCity(city);
+		user.setBio(bio);
+		user.setCollege(college);
+		user.setLinkedIn(linkedIn);
+		user.setGitHub(gitHub);
+		try {						
+			user.setProfilePic(profilePic.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		service.updateUser(user);
+		model.addAttribute("user", user);
+		return "myProfile";
 	}
-	
 }
